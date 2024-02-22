@@ -11,6 +11,9 @@ gem "pg"
 # Load environment variables from .env file in development and test
 gem 'dotenv-rails', groups: [:development, :test]
 
+#serializer:
+gem 'jsonapi-serializer'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
