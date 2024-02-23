@@ -16,4 +16,13 @@ module Paginable
  def pagination_params
   params.permit![:page]
  end
+
+ def render_collection(paginated)
+  options = {
+    meta:paginated.meta.to_h,
+    links: paginated.links.to_h
+  } #article links, use .to_h to convert items into
+  result = serializer.new(paginated.items, options)
+  render json: result, status: :ok
+ end
 end

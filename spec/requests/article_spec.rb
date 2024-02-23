@@ -6,6 +6,15 @@ RSpec.describe ArticlesController do
       get '/articles'
       expect(response).to have_http_status(:ok)
     end
+  end
+
+  describe '#show' do
+    let(:article) { create :article }
+
+    it 'returns a success response' do
+      get "/articles/#{article.id}"
+      expect(response).to have_http_status(:ok)
+    end
 
     it 'returns a proper JSON' do
       article = create :article
@@ -16,9 +25,9 @@ RSpec.describe ArticlesController do
         expect(expected[:id]).to eq(article.id.to_s)
         expect(expected[:type]).to eq('articles')
         expect(expected[:attributes]).to eq(
-                title: article.title,
-                content: article.content,
-                slug: article.slug
+          title: article.title,
+          content: article.content,
+          slug: article.slug
         )
       end
     end
