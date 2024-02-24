@@ -15,6 +15,10 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'jsonapi-serializer'
 #pagination:
 gem 'jsom-pagination'
+#JSON Errors Handler:
+gem 'jsonapi_errors_handler'
+#OAUTH gem:
+gem 'octokit', '~> 8.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

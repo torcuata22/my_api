@@ -18,6 +18,3 @@ include Paginable
   def serializer
     ArticleSerializer
   end
-
-
-end
