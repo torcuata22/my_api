@@ -61,6 +61,7 @@ RSpec.describe AccessTokensController, type: :controller do
           :user).and_return(user_data)
       end
       subject { post :create, params: { code: 'valid_code' } }
+
       it 'should return a 201 status code' do
         subject
         expect(response).to have_http_status(:created)
@@ -68,17 +69,16 @@ RSpec.describe AccessTokensController, type: :controller do
 
       it 'should return proper json body' do
         expect { subject }.to change{ User.count }.by(1)
-        user = User.find_by(login: 'pperez')
+        # user = User.find_by(login: 'pperez')
+        user = User.last
         puts user
         puts "This is the access token: #{user.access_token}"
         puts "Response body: #{response.body}"
+        expect(JSON.parse(response.body)['data']['attributes']['token'].encode('ASCII')).to eq(user.access_token.token.encode('ASCII'))
+
+        #expect(JSON.parse(response.body)['data']['attributes']['token']).to eq(user.access_token.token)
 
 
-        expect(JSON.parse(response.body)['token']).to eq(user.access_token.token)
-
-        # expect(JSON.parse(response.body)['attributes']).to eq(
-        # { 'token' => user.access_token.token }
-        # )
       end
     end
   end

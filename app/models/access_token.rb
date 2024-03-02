@@ -8,9 +8,10 @@ class AccessToken < ApplicationRecord
   def generate_token
     puts "generating token........."
     loop do
-      self.token = SecureRandom.hex(10)
+
       puts "Generated token: #{token}"
       break if token.present? && !AccessToken.where.not(id: id).exists?(token: token)
+      self.token = SecureRandom.hex(10)
     end
   end
 

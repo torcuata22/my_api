@@ -4,6 +4,7 @@ class AccessTokensController < ApplicationController
     authenticator = UserAuthenticator.new(params[:code])
     authenticator.perform
     render json: authenticator.access_token, status: :created, serializer: AccessTokenSerializer
+    puts "Response body: #{response.body}"
   end
 end
   # def create
@@ -15,8 +16,3 @@ end
   #   # render json: { token: @access_token }, status: :created
   #   # render json: authenticator.access_token, status: :created
   # end
-
-  # def serializer
-  #   AccessTokenSerializer
-  # end
-# end
