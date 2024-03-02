@@ -1,21 +1,22 @@
 class AccessTokensController < ApplicationController
-
-  rescue_from UserAuthenticator::AuthenticationError, with: :authentication_error
+  # rescue_from UserAuthenticator::AuthenticationError, with: :authentication_error
 
   def create
+    puts "create action triggered"
     authenticator = UserAuthenticator.new(params[:code])
     authenticator.perform
-  end
-
-private
-
-  def authentication_error
-    error = {
-      "status" => "401",
-      "source" => { "pointer": "/code" },
-      "title" => "Authentication code is invalid",
-      "detail" => "You must provide a valid code to exchange for a token"
-}
-  render json: { "errors" => [ error ] }, status: 401
+    render json: authenticator.access_token, status: :created
   end
 end
+#   private
+
+#   def authentication_error(exception)
+#     error_message = {
+#       "status" => "401",
+#       "source" => { "pointer" => "/code" },
+#       "title" => "Authentication error",
+#       "detail" => exception.message
+#     }
+#     render json: { "errors" => [error_message] }, status: :unauthorized
+#   end
+# end

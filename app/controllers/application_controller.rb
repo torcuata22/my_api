@@ -11,6 +11,7 @@ class ApplicationController < ActionController::API
   private
 
   def authentication_error
+    puts "authentication error triggered"
     error = {
       "status" => "401",
       "source" => { "pointer": "/code" },
