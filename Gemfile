@@ -21,6 +21,8 @@ gem 'jsonapi_errors_handler'
 gem 'octokit', '~> 8.1'
 
 gem 'faraday-retry', '~> 2.2'
+gem 'active_model_serializers', '~> 0.10.14'
+
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

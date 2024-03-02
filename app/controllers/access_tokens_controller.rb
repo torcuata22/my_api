@@ -1,22 +1,22 @@
 class AccessTokensController < ApplicationController
-  # rescue_from UserAuthenticator::AuthenticationError, with: :authentication_error
 
   def create
-    puts "create action triggered"
     authenticator = UserAuthenticator.new(params[:code])
     authenticator.perform
-    render json: authenticator.access_token, status: :created
+    render json: authenticator.access_token, status: :created, serializer: AccessTokenSerializer
   end
 end
-#   private
+  # def create
+  #   puts "create action triggered"
+  #   authenticator = UserAuthenticator.new(params[:code])
+  #   authenticator.perform
+  #   result = serializer.new(authenticator.access_token)
+  #   render json: result, status: :created
+  #   # render json: { token: @access_token }, status: :created
+  #   # render json: authenticator.access_token, status: :created
+  # end
 
-#   def authentication_error(exception)
-#     error_message = {
-#       "status" => "401",
-#       "source" => { "pointer" => "/code" },
-#       "title" => "Authentication error",
-#       "detail" => exception.message
-#     }
-#     render json: { "errors" => [error_message] }, status: :unauthorized
-#   end
+  # def serializer
+  #   AccessTokenSerializer
+  # end
 # end
