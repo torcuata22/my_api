@@ -24,6 +24,33 @@ RSpec.describe AccessTokensController, type: :controller do
       end
     end
 
+
+    # shared_examples_for 'forbidden_requests' do
+    #   let(:authorization_error) do
+    #     {
+    #       "errors" => [{
+    #         "status" => "403",
+    #         "source" => { "pointer" => "/headers/authorization" },
+    #         "title" => "You are not authorized",
+    #         "detail" => "You are not authorized to access this resource"
+    #       }]
+    #     }
+    #   end
+
+    #   it 'should return 403 status code' do
+    #     subject
+    #     expect(response).to have_http_status(:forbidden)
+    #   end
+
+    #   it 'should return proper error json' do
+    #     subject
+    #     parsed_response = JSON.parse(response.body)
+    #     expect(parsed_response).to eq(authorization_error)
+    #   end
+    # end
+
+
+
     context 'when no code provided' do
       subject { post :create }
       it_behaves_like "unauthorized_requests"
@@ -77,7 +104,7 @@ RSpec.describe AccessTokensController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    context 'when invalid request' do
+    shared_examples_for 'forbidden_requests' do
       let(:authorization_error) do
         {
           "errors" => [{
@@ -89,8 +116,6 @@ RSpec.describe AccessTokensController, type: :controller do
         }
       end
 
-      subject { delete :destroy }
-
       it 'should return 403 status code' do
         subject
         expect(response).to have_http_status(:forbidden)
@@ -100,12 +125,13 @@ RSpec.describe AccessTokensController, type: :controller do
         subject
         parsed_response = JSON.parse(response.body)
         expect(parsed_response).to eq(authorization_error)
-        # expect(parsed_response).to eq([authorization_error])
-        # expect(parsed_response['errors']).to eq(authorization_error)
-        # expect(parsed_response[0]).to eq(authorization_error)
-
-
       end
     end
+
+
+    context 'when invalid request' do
+      subject { delete :destroy }
+      it_behaves_like 'forbidden_requests'
   end
+end
 end
