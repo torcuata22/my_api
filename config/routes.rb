@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # get '/articles', to: 'articles#index'
   post 'login', to: 'access_tokens#create'
+  delete 'logout', to: 'access_tokens#destroy'
   resources :articles, only:[:index, :show]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
